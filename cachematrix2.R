@@ -5,33 +5,32 @@
 
 makeCacheMatrix <- function(x = matrix()) {
     ## Initialize inverse property
-    m <- NULL
-    ## Store Matrix
-    set <- function(y) {
-        x <<- y
-        m <<- NULL
+    i <- NULL
+    ## Set Matrix
+    set <- function(matrix) {
+        m <<- matrix
+        i <<- NULL
     }
-    ## Return sotred matrix
+    ## Make matrix
     get <- function() {
-        x
+        m
     }
     ## Set inverse of matrix
-    setInverse <- function(solve) {
-        m <<- solve
+    setInverse <- function(inverse) {
+        i <<- inverse
     }
     ## Get Inverse of matrix
     getInverse <- function() {
-        m
+        i
     }
-    ## Return stored inverse
+    ## Return list of functions
     list(set = set, get = get, setInverse=setInverse, getInverse = getInverse)
 }
 
 
 
 
-## Use makeCacheMatrix t either get ivnerse of original matrix
-## store and return it, or retrieve and return cached matrix
+## cacheSolve gets the inverse of makeCxacheMatrix, and get inverse of matrix from cache.
 
 cacheSolve <- function(x, ...) {
     ## Return a matrix that is the inverse of 'x'
@@ -39,15 +38,10 @@ cacheSolve <- function(x, ...) {
     
     ## Return inverse if already set
     if(!is.null(m)) {
-        message("getting cached daga")
         return(m)
     }
-    ##Get original matrix
     data <- x$get()
-    ##Get inverse
-    m <- solve(data, ...)
-    ##Store inverse of matrix
+    m <- solve(data) %% data
     x$setInverse(m)
-    ##Return inverse of matrix
     m
 }
