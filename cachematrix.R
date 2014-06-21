@@ -39,7 +39,7 @@ cacheSolve <- function(x, ...) {
     
     ## Return inverse if already set
     if(!is.null(m)) {
-        message("getting cached daga")
+        message("getting cached data")
         return(m)
     }
     ##Get original matrix
